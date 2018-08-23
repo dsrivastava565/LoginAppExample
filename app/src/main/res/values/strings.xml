@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LoginAppExample</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_file">com.example.my_dell.preference_file</string>
+    <string name="pref_user_name">com.example.my_dell.preference_user_name</string>
+    <string name="pref_login_status">com.example.my_dell.preference_login_status</string>
+</resources>
