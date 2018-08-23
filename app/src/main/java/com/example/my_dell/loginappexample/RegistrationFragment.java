@@ -3,6 +3,7 @@ package com.example.my_dell.loginappexample;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,13 @@ private Button BnRegister;
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
  Name = view.findViewById(R.id.reg_name);
+        int maxLength = 10;
+        Name.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
  Username = view.findViewById(R.id.reg_username);
+        Username.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
  Userpassword = view.findViewById(R.id.reg_password);
+
+        Userpassword.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
  BnRegister = view.findViewById(R.id.bn_register);
  BnRegister.setOnClickListener(new View.OnClickListener() {
      @Override

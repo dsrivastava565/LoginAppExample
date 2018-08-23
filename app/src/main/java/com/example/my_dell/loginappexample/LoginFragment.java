@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +46,10 @@ public interface OnLoginFormActivityListener
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
         RegText = view.findViewById(R.id.RegisterView);
         username1 = view.findViewById(R.id.login_usernme);
+        int maxLength = 10;
+        username1.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
         password1 = view.findViewById(R.id.login_pass);
+        password1.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
         submit = view.findViewById(R.id.login_btn);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,21 +82,28 @@ loginFormActivityListener.performRegister();
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
+                assert response.body() != null;
                 if (response.body().getResponse().equals("ok"))
                 {
+                    MainActivity.prefConfig.displayToast("success");
                     MainActivity.prefConfig.writeLoginStatus(true);
+                    assert response.body() != null;
                     loginFormActivityListener.performLogin(response.body().getName());
 
                 }
-                else if(response.body().getResponse().equals("failed"))
-                {
-                    MainActivity.prefConfig.displayToast("Login failed");
+                else {
+                    assert response.body() != null;
+                    if("failed".equals(response.body().getResponse()))
+                    {
+                        MainActivity.prefConfig.displayToast("Login failed");
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                MainActivity.prefConfig.displayToast("success");
             }
         });
         username1.setText("");
