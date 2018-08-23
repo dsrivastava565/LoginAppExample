@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName("response")
-    private String response;
+    private String ussresponse;
     @SerializedName("name")
     private String Name;
 
     public String getResponse() {
-        return response;
+        return ussresponse;
     }
 
     public String getName() {

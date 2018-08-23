@@ -8,7 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -16,6 +22,8 @@ import android.widget.TextView;
  */
 public class LoginFragment extends Fragment {
 private TextView RegText;
+private EditText username1,password1;
+private Button submit;
 OnLoginFormActivityListener loginFormActivityListener;
 public interface OnLoginFormActivityListener
 {
@@ -34,6 +42,16 @@ public interface OnLoginFormActivityListener
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
         RegText = view.findViewById(R.id.RegisterView);
+        username1 = view.findViewById(R.id.login_usernme);
+        password1 = view.findViewById(R.id.login_pass);
+        submit = view.findViewById(R.id.login_btn);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+performLogin();
+            }
+        });
+
         RegText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,5 +67,34 @@ loginFormActivityListener.performRegister();
         super.onAttach(context);
         Activity activity = (Activity) context;
         loginFormActivityListener = (OnLoginFormActivityListener) activity;
+    }
+    private void performLogin()
+    {
+        String username = username1.getText().toString();
+        String password = password1.getText().toString();
+        Call <User> call = MainActivity.apiInterface.performUserLogin(username,password);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.body().getResponse().equals("ok"))
+                {
+                    MainActivity.prefConfig.writeLoginStatus(true);
+                    loginFormActivityListener.performLogin(response.body().getName());
+
+                }
+                else if(response.body().getResponse().equals("failed"))
+                {
+                    MainActivity.prefConfig.displayToast("Login failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+        username1.setText("");
+        password1.setText("");
+
     }
 }

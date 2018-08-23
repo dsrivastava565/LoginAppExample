@@ -3,6 +3,7 @@ package com.example.my_dell.loginappexample;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegistrationFragment extends Fragment {
 private EditText Name,Username,Userpassword;
-private Button bn_register;
+private Button BnRegister;
 
     public RegistrationFragment() {
         // Required empty public constructor
@@ -34,11 +37,11 @@ private Button bn_register;
  Name = view.findViewById(R.id.reg_name);
  Username = view.findViewById(R.id.reg_username);
  Userpassword = view.findViewById(R.id.reg_password);
- bn_register = view.findViewById(R.id.bn_register);
- bn_register.setOnClickListener(new View.OnClickListener() {
+ BnRegister = view.findViewById(R.id.bn_register);
+ BnRegister.setOnClickListener(new View.OnClickListener() {
      @Override
      public void onClick(View view) {
-performRegistration();
+       performRegistration();
      }
  });
 
@@ -72,6 +75,7 @@ performRegistration();
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
                 MainActivity.prefConfig.displayToast("Failure");
             }
         });

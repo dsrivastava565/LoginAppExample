@@ -16,15 +16,18 @@
             android:layout_marginLeft="150dp"/>
 <EditText
     android:hint="Username"
+    android:id="@+id/login_usernme"
     android:layout_marginTop="50dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
     <EditText
         android:hint="Password"
         android:layout_marginTop="15dp"
+        android:id="@+id/login_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
