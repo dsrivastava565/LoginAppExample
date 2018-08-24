@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".LoginFragment">
 
@@ -13,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:textSize="30dp"
-            android:layout_marginLeft="150dp"/>
+            android:layout_marginLeft="140dp"/>
 <EditText
     android:hint="Username"
     android:id="@+id/login_usernme"
@@ -30,16 +31,17 @@
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background"
         android:layout_marginTop="20dp"
         android:text="Submit"/>
 
     <TextView
-        style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
         android:id="@+id/RegisterView"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="100dp"
-        android:background="@android:color/background_light"
-        android:text="New User?? Sign up" />
+        android:text="New User?? Sign up"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 </LinearLayout>

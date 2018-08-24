@@ -63,17 +63,18 @@ private Button BnRegister;
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-
-                if(response.body().getResponse().equals("ok"))
+User mUserObject = response.body();
+String returnedResponse = mUserObject.getResponse();
+                if(returnedResponse.trim().equals("ok"))
                 {
                     MainActivity.prefConfig.displayToast("Registration success...");
 
                 }
-                else if(response.body().getResponse().equals("exist"))
+                else if(returnedResponse.trim().equals("exist"))
                 {
                     MainActivity.prefConfig.displayToast(" User Already exist...");
                 }
-                else if (response.body().getResponse().equals("error"))
+                else if (returnedResponse.trim().equals("error"))
                 {
                     MainActivity.prefConfig.displayToast("Something went wrong...");
                 }
