@@ -1,18 +1,29 @@
 package com.example.my_dell.loginappexample;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName("response")
-    private String ussresponse;
+    @Expose
+    private String response;
     @SerializedName("name")
-    private String Name;
+    @Expose
+    private String name;
 
     public String getResponse() {
-        return ussresponse;
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 
     public String getName() {
-        return Name;
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

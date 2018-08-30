@@ -1,5 +1,8 @@
 package com.example.my_dell.loginappexample;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -11,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://10.21.66.34/loginapp/";
+    public static final String BASE_URL = "http://10.21.67.87/loginapp/";
 
 public static Retrofit retrofit = null;
 
@@ -27,9 +30,15 @@ public static Retrofit retrofit = null;
 // add logging as last interceptor
       httpClient.addInterceptor(logging);  // <-- this is the important line!
 
+
+
       if (retrofit==null)
       {
-          retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+          Gson gson = new GsonBuilder()
+                  .setLenient()
+                  .create();
+
+          retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create(gson))
                   .client(httpClient.build())
                   .build();
 

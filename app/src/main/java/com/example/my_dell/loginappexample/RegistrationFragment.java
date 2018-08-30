@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,16 +63,18 @@ private Button BnRegister;
         String name = Name.getText().toString();
         String username = Username.getText().toString();
         String password = Userpassword.getText().toString();
+
         Call<User> call = MainActivity.apiInterface.performRegistration(name,username,password);
+
+
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-User mUserObject = response.body();
-String returnedResponse = mUserObject.getResponse();
-                if(returnedResponse.trim().equals("ok"))
+      User mUserObject = response.body();
+      String returnedResponse = mUserObject.getResponse();
+                if(returnedResponse.equals("ok"))
                 {
                     MainActivity.prefConfig.displayToast("Registration success...");
-
                 }
                 else if(returnedResponse.trim().equals("exist"))
                 {

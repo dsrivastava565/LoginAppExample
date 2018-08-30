@@ -6,12 +6,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -78,11 +82,14 @@ loginFormActivityListener.performRegister();
     {
         String username = username1.getText().toString();
         String password = password1.getText().toString();
-        Call <User> call = MainActivity.apiInterface.performUserLogin(username,password);
+        ApiInterface data = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<User> call = data.performUserLogin(username,password);
+        Log.e("AAAAAA" , username+"   "+password);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-
+                Log.e("CHECK" , new Gson().toJson(response.body()));
+                Toast.makeText(getContext() , "HELLO" , Toast.LENGTH_SHORT).show();
                 assert response.body() != null;
                 if (response.body().getResponse().equals("ok"))
                 {
@@ -103,9 +110,11 @@ loginFormActivityListener.performRegister();
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                MainActivity.prefConfig.displayToast("success");
+                Log.e("ERROR" , t.toString());
+                MainActivity.prefConfig.displayToast("failure...");
             }
         });
+
         username1.setText("");
         password1.setText("");
 
